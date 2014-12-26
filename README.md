@@ -22,4 +22,4 @@ Run the server with:
 node index.js
 ```
 
-Go to localhost:8080 and send the link to your partner to start the video conference
+Go to localhost:8080 and send the link to your partner to start.
