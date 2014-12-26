@@ -1,7 +1,7 @@
 monotron-multiplayer
 ===========
 
-An multiplayer online Monotron Duo made with Web Audio API and webRTC.
+A multiplayer online Monotron Duo made with Web Audio API and webRTC.
 
 Installation
 ----------------------------
