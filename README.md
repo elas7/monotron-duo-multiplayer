@@ -9,7 +9,7 @@ Installation
 Clone the repo by running:
 
 ```bash
-git clone git://github.com/elas7/webrtc-video-conference
+git clone git://github.com/elas7/monotron-duo-multiplayer
 ```
 
 Enter the directory and run the build script:
