@@ -1,4 +1,4 @@
-monotron-multiplayer
+monotron-duo-multiplayer
 ===========
 
 A multiplayer online Monotron Duo made with Web Audio API and webRTC.
