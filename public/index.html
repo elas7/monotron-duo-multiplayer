@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC TEST</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/css/main.css"/>
+</head>
+<body>
+
+    <h1>Monotron Multiplayer</h1>
+
+    <section class="broadcast">
+        <section class="local">
+            <video id="myVideo" autoplay="autoplay" controls muted="true"></video>
+
+            <div class="monotron">
+                <div id="mon1_keyboard" class="keyboard"></div>
+                <div class="controls">
+                    <canvas nx="toggle" id="mon1_toggleOsc2"></canvas>
+                    <canvas nx="dial" id="mon1_knobOsc1"></canvas>
+                    <canvas nx="dial" id="mon1_knobXmod"></canvas>
+                    <canvas nx="dial" id="mon1_knobOsc2"></canvas>
+                    <canvas nx="dial" id="mon1_knobCutoff"></canvas>
+                    <canvas nx="dial" id="mon1_knobPeak"></canvas>
+                    <div class="labels">
+                        <h3>OSC1+2</h3>
+                        <h3>VCO1</h3>
+                        <h3>X-MOD</h3>
+                        <h3>VCO2</h3>
+                        <h3>CUTOFF</h3>
+                        <h3>PEAK</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="remote">
+            <video id="yourVideo" autoplay="autoplay" controls muted="true"></video>
+            <div class="monotron">
+                <div id="mon2_keyboard" class="keyboard"></div>
+                <div class="controls">
+                    <canvas nx="toggle" id="mon2_toggleOsc2"></canvas>
+                    <canvas nx="dial" id="mon2_knobOsc1"></canvas>
+                    <canvas nx="dial" id="mon2_knobXmod"></canvas>
+                    <canvas nx="dial" id="mon2_knobOsc2"></canvas>
+                    <canvas nx="dial" id="mon2_knobCutoff"></canvas>
+                    <canvas nx="dial" id="mon2_knobPeak"></canvas>
+                    <div class="labels">
+                        <h3>OSC1+2</h3>
+                        <h3>VCO1</h3>
+                        <h3>X-MOD</h3>
+                        <h3>VCO2</h3>
+                        <h3>CUTOFF</h3>
+                        <h3>PEAK</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+
+
+    <footer>
+      <h2>Footer</h2>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="static/libs/jquery/dist/jquery.min.js"></script>
+    <script src='static/js/adapter.js'></script>
+    <script src="static/js/main.js"></script>
+
+    <script src="static/js/qwerty-hancock.js"></script>
+    <script src="static/js/nexusUI.js"></script>
+    <script src="static/js/monotron.js"></script>
+
+
+</body>
+</html>

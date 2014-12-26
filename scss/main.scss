@@ -1,0 +1,84 @@
+$bgColor: rgba(255, 255, 255, 0.45);
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: url("../img/bg.jpg");
+  background-size: cover;
+  color: $bgColor;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  height: 2em;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  line-height: 2em;
+  overflow: hidden;
+  text-align: center;
+}
+
+.broadcast {
+
+  overflow: hidden;
+  background: $bgColor;
+  margin: 0 auto;
+//  padding: 10px;
+  text-align: center;
+
+  video {
+    background: white;
+    border: 1px solid #999;
+    margin: 10px auto;
+    height: 180px;
+    width: 239px;
+  }
+  section {
+    display: inline-block;
+    margin: 0 -2px;
+  }
+}
+
+footer {
+  padding: 26px;
+}
+
+.monotron {
+  width: 650px;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 11px;
+  background: #697CCA;
+  .controls {
+    margin-top: 15px;
+    overflow: hidden;
+  }
+  .labels {
+    overflow: hidden;
+    h3 {
+      float: left;
+      width: 100px;
+      text-align: center;
+      font-size: 18px;
+      margin: 0 0 0 4px;
+    }
+  }
+  .keyboard, .keyboard ul, .keyboard ul li{
+    box-sizing: content-box;
+  }
+  #G6 {
+    border: 1px solid black !important;
+  }
+}
