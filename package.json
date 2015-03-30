@@ -8,6 +8,9 @@
     "start": "node index.js",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
+  "engines": {
+    "node": "0.10.x"
+  },  
   "author": "",
   "license": "ISC",
   "dependencies": {
