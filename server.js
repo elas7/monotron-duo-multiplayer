@@ -4,14 +4,17 @@
     var path = require('path'),
         express = require('express'),
         sassMiddleware = require('node-sass-middleware'),
+        hbs = require('hbs'),
         utils = require('./utils'),
         app = express(),
         server = require('http').Server(app),
         port = process.env.PORT || 8080;
 
+    hbs.registerPartials(__dirname + '/views/partials');
+
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
-    app.set('view engine', 'hjs');
+    app.set('view engine', 'hbs');
 
     app.use(
         sassMiddleware({
@@ -23,6 +26,10 @@
     );
 
     app.use('/static', express.static(path.join(__dirname, 'public/static')));
+
+    app.get('/new', function (req, res) {
+        res.render('index');
+    });
 
     app.get('/*', function (req, res) {
         if (req.url == '/') {

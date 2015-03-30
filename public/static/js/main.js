@@ -150,17 +150,13 @@
             var msg = JSON.parse(e.data);
             console.log("receiving over data channel:");
             console.log(msg);
-            if (msg.type == 'keydown') {
-                monotron2.onkeydown(msg);
-            } else if (msg.type == 'keyup') {
-                monotron2.onkeyup(msg);
+            if (msg.type == 'keyboard') {
+                monotron2[msg.type].keysDown = msg.data;
             } else {
-                console.log("received message over data channel:");
-                console.log(msg);
-                monotron2[msg.type].val = msg.data;
-                monotron2[msg.type].nxTransmit(msg.data);
-                monotron2[msg.type].draw();
+                monotron2[msg.type].position = msg.data;
             }
+            monotron2[msg.type].publish();
+            monotron2[msg.type].draw();
         };
 
         monotron1.connected = true;
