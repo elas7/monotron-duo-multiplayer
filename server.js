@@ -27,15 +27,11 @@
 
     app.use('/static', express.static(path.join(__dirname, 'public/static')));
 
-    app.get('/new', function (req, res) {
-        res.render('index');
-    });
-
     app.get('/*', function (req, res) {
         if (req.url == '/') {
             res.redirect('/' + utils.randomString(5));
         }
-        res.sendFile((path.join(__dirname, 'public', 'index.html')));
+        res.render('index');
     });
 
     /// catch 404 and forward to error handler

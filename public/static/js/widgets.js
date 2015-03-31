@@ -5,6 +5,8 @@
      */
     window.Knob = function(element, local) {
 
+        window.knobs.push(this);
+
         this.element = element;
         this.parentDiv = $(element).closest('div.monotron');
 
@@ -26,6 +28,9 @@
             this.bindEvents(this);
         }
     };
+
+    // Array containing all knobs
+    window.knobs = [];
 
     Knob.prototype.bindEvents = function(obj){
 
@@ -103,6 +108,9 @@
 
         this.clicked = false;
 
+        // Key currently pressed by the mouse. Used to remove mouse events
+        this.clickedElem = null;
+
         if (local) {
             this.bindEvents(this);
         }
@@ -110,11 +118,23 @@
 
     Keyboard.prototype.bindEvents = function(obj){
 
-        // Function for handling both 'keydown', 'mousedown' and 'mouseenter'
-        var handleDown = function(key) {
-            console.log('key', key);
+        // QWERTY EVENTS
+
+        // Key is pressed down on keyboard.
+        window.addEventListener('keydown', function(e) {
+            handlePress(e.keyCode);
+        });
+
+        // Key is released on keyboard.
+        window.addEventListener('keyup', function(e) {
+            handleRelease(e.keyCode);
+        });
+
+        // Function for handling 'keydown', 'mousedown' and 'mouseenter'
+        var handlePress = function(key) {
+
             // Do nothing if key is not valid
-            if (!obj.isValidKey(key)) {
+            if (!Keyboard.isValidKey(key)) {
                 return;
             }
             // Prepend key if it isn't in the array already, and publish
@@ -126,9 +146,9 @@
         };
 
         // Function for handling 'keyup', 'mouseup' and 'mouseleave'
-        var handleUp = function(key) {
+        var handleRelease = function(key) {
             // Do nothing if key is not valid
-            if (!obj.isValidKey(key)) {
+            if (!Keyboard.isValidKey(key)) {
                 return;
             }
             // Remove key from keysDown and publish
@@ -137,29 +157,46 @@
             obj.publish();
         };
 
-        // Key is pressed down on keyboard.
-        window.addEventListener('keydown', function(e) {
-            handleDown(e.keyCode);
-        });
-
-        // Key is released on keyboard.
-        window.addEventListener('keyup', function(e) {
-            handleUp(e.keyCode);
-        });
+        // MOUSE EVENTS
 
         // Mouse is clicked down on keyboard element.
         this.element.addEventListener('mousedown', function(e){
-            handlePressKey(e.target);
+            handleMousePress(e.target);
         });
 
-        var handlePressKey = function(target) {
-            console.log('target', target);
+        // We track if the user has the mouse clicked event when outside
+        // the keyboard element because he may try a "slide-in"
+        document.addEventListener('mousedown', function(e){
+            obj.clicked = true;
+        });
+
+        // Mouse is released on keyboard.
+        document.addEventListener('mouseup', function(e){
+            obj.clicked = false;
+        });
+
+        this.element.addEventListener('mouseover', function(e){
+            // if mouse enters a key while currently clicked, and there is no
+            // knob being moved right now, interpret it as a key press
+            if (obj.clicked) {
+                var knob_clicked = window.knobs.some(function(knob){
+                    return knob.clicked;
+                });
+                if (!knob_clicked) {
+                    handleMousePress(e.target);
+                }
+            }
+        });
+
+        var handleMousePress = function(target) {
+
+            obj.clicked = true;
 
             // This is a bit hackish, there is no easy way to retrieve
             // a class name and you can't use data attributes in svg.
             // The idea is to retrieve the keyNumber considering that
             // 'pressed' may also be in the class attribute
-            var midiNumber = $(target).attr('class').replace(' pressed', '');
+            var midiNumber = $(target).attr('class').replace('pressed', '');
 
             // Get keyCode from MIDI number
             var keyCode = '';
@@ -169,29 +206,25 @@
                     break;
                 }
             }
-            console.log('got keyCode!', keyCode);
-            handleDown(keyCode);
 
-            // Set up information of target to be handled by 'mouseUp'
-            obj.clicked = {'target': target, 'keyCode': keyCode};
-            document.addEventListener('mouseup', mouseUp);
-            target.addEventListener('mouseleave', mouseUp);
-            console.log('finished handlePressKey', obj.clicked);
+            // Only proceed if key is not already being pressed by QWERTY
+            if (obj.keysDown.indexOf(parseInt(keyCode)) == -1) {
+                // Set up information of target to be handled by 'mouseUp'
+                obj.clickedElem = {'target': target, 'keyCode': keyCode};
+                document.addEventListener('mouseup', handleMouseRelease);
+                target.addEventListener('mouseout', handleMouseRelease);
 
+                handlePress(keyCode);
+            }
         };
 
-        var mouseUp = function(e){
-            console.log('MOUSEUP');
-            handleUp(obj.clicked.keyCode);
-            document.removeEventListener("mouseup", mouseUp);
-            obj.clicked.target.removeEventListener("mouseleave", mouseUp);
-            obj.clicked = false;
+        var handleMouseRelease = function(e){
+            // Stop listening for mouse events once no longer pressing the key
+            document.removeEventListener("mouseup", handleMouseRelease);
+            obj.clickedElem.target.removeEventListener("mouseout", handleMouseRelease);
 
-            // If the mouse left to another key while being clicked, trigger a click event on that one
-            if (e.type == 'mouseleave' && $(e.relatedTarget).closest(obj.element).length > 0) {
-                console.log('MOUSELEAVE TO WIN');
-                handlePressKey(e.relatedTarget);
-            }
+            handleRelease(obj.clickedElem.keyCode);
+            obj.clickedElem = null
         };
 
     };
@@ -199,11 +232,11 @@
     Keyboard.prototype.draw = function() {
         // Remove 'pressed' class to all keys
         $(this.element).children().attr('class', function(index, classNames) {
-            return classNames.replace('pressed', '');
+            return classNames.replace(' pressed', '');
         });
         // Add class 'pressed' for all the visible pressed keys
         this.keysDown.forEach(function(value){
-            if (this.isVisibleKey(value)) {
+            if (Keyboard.isVisibleKey(value)) {
                 $(this.element).children('.' + Keyboard.dictKey[value]).attr('class',
                     function(index, classNames) {
                         return classNames + ' pressed';
@@ -219,13 +252,13 @@
     };
 
     // Check if the key corresponds to a MIDI note.
-    Keyboard.prototype.isValidKey = function(key) {
+    Keyboard.isValidKey = function(key) {
         return Keyboard.dictKey.hasOwnProperty(key);
     };
 
     // Check if the key corresponds to a midi note visible in the interface.
     // Only keys from MIDI value 45 to 62 are visible.
-    Keyboard.prototype.isVisibleKey = function(key) {
+    Keyboard.isVisibleKey = function(key) {
         var midiValue = Keyboard.dictKey[key];
         return (midiValue >= 45 && midiValue <= 62)
     };
