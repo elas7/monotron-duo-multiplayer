@@ -1,7 +1,7 @@
 (function($){
 
     /*
-        KNOB
+     * KNOB
      */
     window.Knob = function(element, local) {
 
@@ -69,8 +69,8 @@
             var deltaY = newMousePos.y - obj.mousePos.y;
             obj.mousePos = newMousePos;
 
-            //Change knob position based on delta and draw
-            //'clamp' avoids the knob position from leaving the range
+            //Change knob position based on delta and draw.
+            //'clamp' prevents the knob position from leaving the range
             obj.position = window.clamp(obj.position - (deltaY * obj.responsivity),
                                         obj.rangeMin, obj.rangeMax);
             obj.draw();
@@ -95,15 +95,63 @@
     };
 
     /*
-     KEYBOARD
+     * TOGGLE
+     */
+    window.Toggle = function(element, local) {
+
+        this.element = element;
+        this.switch = $(element).children('.switch')[0];
+
+        // The knob positions are 1 if on, 0 if off
+        this.position = 0;
+
+        if (local) {
+            this.bindEvents(this);
+        }
+    };
+
+    Toggle.prototype.bindEvents = function(obj) {
+
+        this.element.addEventListener('click', function (e) {
+            if (!obj.position) {
+                obj.position = 1;
+            } else {
+                obj.position = 0;
+            }
+            obj.draw();
+        });
+
+    };
+
+    Toggle.prototype.draw = function() {
+        // Move the inner switch up or down
+        if (this.position) {
+            this.switch.style.transform = 'translate(0px, -100%)';
+        } else {
+            this.switch.style.transform = 'translate(0px, 0px)';
+        }
+
+        this.publish();
+    };
+
+    Toggle.prototype.publish = function() {
+        // Send an event with the current knob position
+        var event = new CustomEvent('changed', { 'detail': this.position });
+        this.element.dispatchEvent(event);
+    };
+
+    /*
+     * KEYBOARD
      */
     window.Keyboard = function(element, local) {
 
         this.element = element;
-        this.parentDiv = $(element).closest('div.monotron');
 
         // Array of keys currently being pressed. The first one is most
         // recently pressed, and so on.
+        // TODO: We should store MIDI keys instead of keyCodes in keysDown
+        // It is more semantic like that. Also, currently more than one
+        // KeyCode can be mapped to the same MIDI key
         this.keysDown = [];
 
         this.clicked = false;
@@ -170,11 +218,12 @@
             obj.clicked = true;
         });
 
-        // Mouse is released on keyboard.
+        // Mouse is released on document.
         document.addEventListener('mouseup', function(e){
             obj.clicked = false;
         });
 
+        // Mouse enters a key within the keyboard element.
         this.element.addEventListener('mouseover', function(e){
             // if mouse enters a key while currently clicked, and there is no
             // knob being moved right now, interpret it as a key press
@@ -193,7 +242,7 @@
             obj.clicked = true;
 
             // This is a bit hackish, there is no easy way to retrieve
-            // a class name and you can't use data attributes in svg.
+            // a class name and you can't use data attributes in SVG.
             // The idea is to retrieve the keyNumber considering that
             // 'pressed' may also be in the class attribute
             var midiNumber = $(target).attr('class').replace('pressed', '');
@@ -287,6 +336,7 @@
             76 : 61, // L -> C+4
             190: 62, // . -> D4
             186: 63, // ; -> D+4
+            191: 64, // / -> E4
 
             81 : 60, // Q -> C4
             50 : 61, // 2 -> C+4

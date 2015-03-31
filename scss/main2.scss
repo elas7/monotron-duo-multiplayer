@@ -76,7 +76,7 @@ g.keyboard {
       cursor: all-scroll;
     }
   }
-  g.keyboard {
+  g.keyboard, g.toggle {
     &:hover {
       cursor: pointer;
     }

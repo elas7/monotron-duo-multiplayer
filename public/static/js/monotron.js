@@ -105,18 +105,21 @@
                 value, context.currentTime);
         });
 
-        //// Toggle that activates or deactivates Osc2
-        //this.toggleOsc2 = window[prefix + 'toggleOsc2'];
-        //this.toggleOsc2.response = function(data) {
-        //    if (obj.connected && obj.local) {
-        //        window.sendData({type:'toggleOsc2', data:data})
-        //    }
-        //    if (!data) {
-        //        obj.osc2Gain.gain.value = 0.0;
-        //    } else if (!$.isEmptyObject(obj.keyDown)) {
-        //        obj.osc2Gain.gain.value = 1.0;
-        //    }
-        //};
+        // Toggle that activates or deactivates Osc2
+        var toggleOsc2Elem = $('.' + this.localClass + ' .toggleOsc2')[0];
+        this.toggleOsc2 = new Toggle(toggleOsc2Elem, local);
+        toggleOsc2Elem.addEventListener('changed', function (e) {
+            var data = e.detail;
+            console.log('data', data);
+            if (obj.connected && obj.local) {
+                window.sendData({type:'toggleOsc2', data:data})
+            }
+            if (!data) {
+                obj.osc2Gain.gain.value = 0.0;
+            } else if (obj.keyboard.keysDown.length !== 0) {
+                obj.osc2Gain.gain.value = 1.0;
+            }
+        });
 
         // KEYBOARD
 
@@ -209,9 +212,9 @@
         this.osc2.frequency.setValueAtTime(
             this.getOsc2Freq(), this.context.currentTime);
         this.osc1Gain.gain.value = 1.0;
-        //if (window[this.prefix + 'toggleOsc2'].val) {
-        //    this.osc2Gain.gain.value = 1.0;
-        //}
+        if (this.toggleOsc2.position) {
+            this.osc2Gain.gain.value = 1.0;
+        }
     };
 
     Monotron.prototype.stop = function() {
