@@ -105,6 +105,10 @@
         // The knob positions are 1 if on, 0 if off
         this.position = 0;
 
+        // TODO: We call draw because the default position
+        // is 'ON' in the SVG. Please fix, dude.
+        this.draw();
+
         if (local) {
             this.bindEvents(this);
         }
@@ -126,9 +130,9 @@
     Toggle.prototype.draw = function() {
         // Move the inner switch up or down
         if (this.position) {
-            this.switch.style.transform = 'translate(0px, -100%)';
-        } else {
             this.switch.style.transform = 'translate(0px, 0px)';
+        } else {
+            this.switch.style.transform = 'translate(0px, -100%)';
         }
 
         this.publish();

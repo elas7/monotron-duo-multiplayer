@@ -42,13 +42,13 @@ h1 {
   video {
     background: white;
     border: 1px solid #999;
-    margin: 10px auto;
+    margin: 0px auto 10px auto;
     height: 180px;
     width: 239px;
   }
   section {
     display: inline-block;
-    margin: 0 -2px;
+    margin: 10px 20px;
   }
 }
 
@@ -57,28 +57,44 @@ footer {
 }
 
 .monotron {
-  width: 650px;
-  border: 1px solid rgb(0, 0, 0);
-  padding: 11px;
-  background: #697CCA;
-  .controls {
-    margin-top: 15px;
-    overflow: hidden;
+  width: 525px;
+}
+
+g.knob {
+  transform-origin: 50% 50%;
+}
+
+g.switch {
+  transition: 60ms ease;
+}
+
+
+g.keyboard {
+  .pressed {
+    fill: #fbc562;
   }
-  .labels {
-    overflow: hidden;
-    h3 {
-      float: left;
-      width: 100px;
-      text-align: center;
-      font-size: 18px;
-      margin: 0 0 0 4px;
+}
+
+.local {
+  g.knob {
+    &:hover {
+      cursor: all-scroll;
     }
   }
-  .keyboard, .keyboard ul, .keyboard ul li{
-    box-sizing: content-box;
+  g.keyboard, g.toggle {
+    &:hover {
+      cursor: pointer;
+    }
   }
-  #G6 {
-    border: 1px solid black !important;
-  }
+}
+
+
+// Hack to allow double click events on knobs
+* {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dragging * {
+  cursor: crosshair
 }
