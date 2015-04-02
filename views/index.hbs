@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebRTC TEST</title>
+    <title>Monotron Multiplayer</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="static/css/main.css"/>
 </head>
@@ -12,14 +12,14 @@
 
 <section class="broadcast">
     <section class="local">
-        <video id="myVideo" autoplay="autoplay" controls muted="true"></video>
+        <video id="myVideo" autoplay="autoplay" muted="true"></video>
         <div class="monotron">
             {{> monotron}}
         </div>
     </section>
 
     <section class="remote">
-        <video id="yourVideo" autoplay="autoplay" controls muted="true"></video>
+        <video id="yourVideo" autoplay="autoplay" muted="true"></video>
         <div class="monotron">
             {{> monotron}}
         </div>
@@ -33,14 +33,16 @@
     <h2>Footer</h2>
 </footer>
 
+<!--External libs-->
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/libs/jquery/dist/jquery.min.js"></script>
 <script src='static/js/adapter.js'></script>
-<script src="static/js/main.js"></script>
 
+<!--Own stuff-->
 <script src="static/js/utils.js"></script>
 <script src="static/js/widgets.js"></script>
 <script src="static/js/monotron.js"></script>
+<script src="static/js/main.js"></script>
 
 </body>
 </html>
