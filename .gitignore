@@ -1,4 +1,4 @@
 node_modules
 .idea
-public/static/libs
+public/static/bundles
 public/static/css
