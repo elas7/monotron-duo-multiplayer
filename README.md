@@ -16,12 +16,12 @@ git clone git://github.com/elas7/monotron-duo-multiplayer
 
 Enter the directory and run the build script:
 ```bash
-cd webrtc-video-conference && npm install && bower install
+cd webrtc-video-conference && npm install
 ```
 
 Run the server with:
 ```bash
-node index.js
+npm start
 ```
 
 Go to localhost:8080 and send the link to your partner to start.
