@@ -3,7 +3,7 @@ monotron-duo-multiplayer
 
 A multiplayer online Monotron Duo made with Web Audio API and webRTC.
 
-Demo: http://monotron-duo-multiplayer.herokuapp.com
+Demo: https://monotron-duo-multiplayer.herokuapp.com
 
 Installation
 ----------------------------
