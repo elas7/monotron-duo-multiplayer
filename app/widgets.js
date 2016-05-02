@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getCursorPosition, convertRange, clamp, mean} from './utils'
+import { getCursorPosition, convertRange, clamp, mean} from './utils/client'
 
 /*
  * KNOB

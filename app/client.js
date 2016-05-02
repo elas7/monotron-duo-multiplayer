@@ -1,3 +1,6 @@
+/**
+ * THIS IS THE ENTRY POINT FOR THE CLIENT, JUST LIKE server.js IS THE ENTRY POINT FOR THE SERVER.
+ */
 import "babel-polyfill";
 import $ from 'jquery';
 import { getUserMedia, attachMediaStream } from 'webrtc-adapter-test';

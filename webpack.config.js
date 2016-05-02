@@ -2,10 +2,10 @@ var path = require('path');
 
 // Configuration data
 module.exports = {
-    entry: './public/static/js/main.js',
+    entry: './app/client.js',
     output: {
-        path: './public/static/bundles/',
-        filename: 'main.js'
+        path: './app/public/static/bundles/',
+        filename: 'client.js'
     },
     resolve: {
         alias: {
@@ -17,7 +17,8 @@ module.exports = {
         loaders: [
             {
                 // apply babel loader only to files in public/static/js
-                test: /public\/static\/js\/.*\.js/,
+                test: /\.js$/,
+                include: [path.resolve(__dirname, "app")],
                 loader: 'babel',
                 query: {
                     presets: ['es2015']

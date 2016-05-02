@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var server = require('./server'),
+  var server = require('./express'),
       io = require('socket.io')(server),
       connections = {};
 
