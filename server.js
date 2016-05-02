@@ -32,8 +32,9 @@
     app.get('/*', function (req, res) {
         if (req.url == '/') {
             res.redirect('/' + utils.randomString(5));
+        } else {
+            res.render('index');
         }
-        res.render('index');
     });
 
     /// catch 404 and forward to error handler
