@@ -7,6 +7,7 @@
     "test": "echo \"No test specified\" && exit 0",
     "start": "node app/server.js",
     "build": "webpack",
+    "gulp": "gulp",
     "postinstall": "webpack"
   },
   "engines": {
@@ -21,6 +22,8 @@
     "node-sass-middleware": "^0.9.8",
     "socket.io": "^1.4.5",
     "webrtc-adapter-test": "^0.2.10",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
     "babel-core": "^6.7.7",
     "babel-polyfill": "^6.7.4",
     "babel-loader": "^6.2.4",
