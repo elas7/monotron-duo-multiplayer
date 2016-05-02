@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "start": "node app/server.js",
-    "build": "webpack",
-    "gulp": "gulp",
-    "postinstall": "webpack"
+    "postinstall": "gulp"
   },
   "engines": {
     "node": "6.0.x"
