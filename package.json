@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "start": "node app/server.js",
-    "postinstall": "gulp"
+    "postinstall": "gulp",
+    "watch": "gulp watch"
   },
   "engines": {
     "node": "6.0.x"

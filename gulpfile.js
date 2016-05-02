@@ -60,4 +60,10 @@ gulp.task('build:watch:webpack', function() {
   });
 });
 
-gulp.task('default', ['build:watch:scss', 'build:watch:webpack']);
+/**
+ * General tasks
+ */
+gulp.task('build', ['build:scss', 'build:webpack']);
+gulp.task('build:watch', ['build:watch:scss', 'build:watch:webpack']);
+
+gulp.task('default', ['build']);
