@@ -23,6 +23,7 @@
     "socket.io": "^1.4.5",
     "webrtc-adapter-test": "^0.2.10",
     "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
     "gulp-sass": "^2.3.1",
     "babel-core": "^6.7.7",
     "babel-polyfill": "^6.7.4",
