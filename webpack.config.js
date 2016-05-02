@@ -18,7 +18,10 @@ module.exports = {
             {
                 // apply babel loader only to files in public/static/js
                 test: /public\/static\/js\/.*\.js/,
-                loader: 'babel-loader'
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                }
             }
         ]
     }

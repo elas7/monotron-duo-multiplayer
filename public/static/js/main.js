@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import $ from 'jquery';
 import { getUserMedia, attachMediaStream } from 'webrtc-adapter-test';
 import Monotron from './Monotron';
