@@ -9,7 +9,7 @@
     "postinstall": "webpack"
   },
   "engines": {
-    "node": "0.12.x"
+    "node": "6.0.x"
   },
   "author": "",
   "license": "ISC",
