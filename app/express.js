@@ -3,7 +3,6 @@
 
     var path = require('path'),
         express = require('express'),
-        sassMiddleware = require('node-sass-middleware'),
         exphbs  = require('express-handlebars'),
         utils = require('./utils/server'),
         app = express(),
@@ -17,15 +16,6 @@
     }));
     app.set('view engine', '.hbs');
     app.set('views', path.join(__dirname, 'views'));
-
-    app.use(
-        sassMiddleware({
-            src: path.join(__dirname, 'scss'),
-            dest: path.join(__dirname, 'public/static/css'),
-            prefix: '/static/css',
-            outputStyle: 'compressed'
-        })
-    );
 
     app.use('/static', express.static(path.join(__dirname, 'public/static')));
 
