@@ -7,12 +7,6 @@ module.exports = {
         path: './app/public/static/bundles/',
         filename: 'client.js'
     },
-    resolve: {
-        alias: {
-            // remove this once 'webrtc-adapter-test' adds a 'main' field to package.json
-            'webrtc-adapter-test': path.join(__dirname, "node_modules/webrtc-adapter-test/adapter.js")
-        }
-    },
     module: {
         loaders: [
             {
