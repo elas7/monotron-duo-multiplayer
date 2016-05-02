@@ -2,10 +2,10 @@
   "name": "test1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
-    "start": "node index.js",
+    "start": "node app/index.js",
     "postinstall": "webpack"
   },
   "engines": {

@@ -12,7 +12,7 @@
 
     // view engine setup
     app.engine('.hbs', exphbs({
-        partialsDir: ['views/partials/'],
+        partialsDir: [path.join(__dirname, 'views/partials/')],
         extname: '.hbs'
     }));
     app.set('view engine', '.hbs');
