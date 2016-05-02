@@ -16,7 +16,7 @@ git clone git://github.com/elas7/monotron-duo-multiplayer
 
 Enter the directory and run the build script:
 ```bash
-cd webrtc-video-conference && npm install
+cd monotron-duo-multiplayer && npm install
 ```
 
 Run the server with:
