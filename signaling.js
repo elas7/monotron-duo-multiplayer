@@ -17,7 +17,7 @@
         console.log('created room', room);
       } else {
         // join the room if it's not full
-        var numClients = Object.keys(rooms[room]).length;
+        var numClients = rooms[room].length;
         if (numClients == 1) {
           socket.join(room);
 
