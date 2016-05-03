@@ -8,6 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Monotron from './Monotron';
+import MonotronComponent from './components/Monotron';
 
 var context = new window.AudioContext();
 
@@ -177,3 +178,10 @@ function setupDataHandlers() {
     monotron1.connected = true;
     monotron2.connected = true;
 }
+
+const DOMRoot = document.getElementById('root');
+
+ReactDOM.render(
+  <MonotronComponent />,
+  DOMRoot
+);
