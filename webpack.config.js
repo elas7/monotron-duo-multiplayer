@@ -13,10 +13,7 @@ module.exports = {
                 // apply babel loader only to files in public/static/js
                 test: /\.js$/,
                 include: [path.resolve(__dirname, "app")],
-                loader: 'babel',
-                query: {
-                    presets: ['es2015']
-                }
+                loader: 'babel'
             }
         ]
     }

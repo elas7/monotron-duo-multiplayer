@@ -4,6 +4,9 @@
 import "babel-polyfill";
 import $ from 'jquery';
 import { getUserMedia, attachMediaStream } from 'webrtc-adapter-test';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Monotron from './Monotron';
 
 var context = new window.AudioContext();
