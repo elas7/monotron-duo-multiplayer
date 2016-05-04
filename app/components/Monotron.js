@@ -1,7 +1,7 @@
 import React from 'react';
 import Toggle from './Toggle';
 import Knob from './Knob';
-import {Keyboard} from './Keyboard';
+import KeyboardContainer from '../containers/Keyboard';
 
 /**
  * Monotron Component.
@@ -168,7 +168,7 @@ export default function Monotron() {
       <Knob name="knobOsc2" />
       <Knob name="knobCutoff" />
       <Knob name="knobPeak" />
-      <Keyboard />
+      <KeyboardContainer />
 
     </svg>
   )
