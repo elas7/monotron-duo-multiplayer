@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 /**
  * Knob Component.
@@ -40,3 +40,7 @@ export default function Knob({name}) {
 
   return knobs[name];
 }
+
+Knob.propTypes = {
+  name: PropTypes.string.isRequired
+};

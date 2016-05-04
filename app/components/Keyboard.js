@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import range from 'lodash.range';
 
 /**
@@ -28,6 +28,10 @@ export function KeyboardKey({number}) {
 
   return keys[number];
 }
+
+KeyboardKey.propTypes = {
+  number: PropTypes.number.isRequired
+};
 
 /**
  * Keyboard Component.

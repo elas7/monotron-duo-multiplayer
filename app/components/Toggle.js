@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 /**
  * Toggle Component.
@@ -19,3 +19,7 @@ export default function Toggle({name}) {
     </g>
   );
 }
+
+Toggle.propTypes = {
+  name: PropTypes.string.isRequired
+};
