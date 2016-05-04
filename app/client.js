@@ -7,7 +7,7 @@ import { getUserMedia, attachMediaStream } from 'webrtc-adapter-test';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 import monotronApp from './reducers';
 
 import Monotron from './Monotron';
@@ -182,7 +182,9 @@ function setupDataHandlers() {
     monotron2.connected = true;
 }
 
-let store = createStore(monotronApp);
+let store = createStore(monotronApp, compose(
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+));
 const DOMRoot = document.getElementById('root');
 
 ReactDOM.render(

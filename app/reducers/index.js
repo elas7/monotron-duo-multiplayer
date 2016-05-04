@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import {PRESS_KEY, RELEASE_KEY} from '../actions'
 
-const keys = (state = [], action) => {
+const keysDown = (state = [], action) => {
   switch (action.type) {
     case PRESS_KEY:
       // most recently pressed key is at the top
@@ -21,7 +21,7 @@ const keys = (state = [], action) => {
 };
 
 const monotronApp = combineReducers({
-  keys
+  keysDown
 });
 
 export default monotronApp
