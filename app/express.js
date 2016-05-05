@@ -1,63 +1,58 @@
-(function () {
-    'use strict';
+let path = require('path');
+let express = require('express');
+let exphbs  = require('express-handlebars');
+let utils = require('./utils/server');
+let app = express();
+let server = require('http').Server(app);
+let port = process.env.PORT || 8080;
 
-    var path = require('path'),
-        express = require('express'),
-        exphbs  = require('express-handlebars'),
-        utils = require('./utils/server'),
-        app = express(),
-        server = require('http').Server(app),
-        port = process.env.PORT || 8080;
+// view engine setup
+app.engine('.hbs', exphbs({
+    partialsDir: [path.join(__dirname, 'views/partials/')],
+    extname: '.hbs'
+}));
+app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
 
-    // view engine setup
-    app.engine('.hbs', exphbs({
-        partialsDir: [path.join(__dirname, 'views/partials/')],
-        extname: '.hbs'
-    }));
-    app.set('view engine', '.hbs');
-    app.set('views', path.join(__dirname, 'views'));
+app.use('/static', express.static(path.join(__dirname, 'public/static')));
 
-    app.use('/static', express.static(path.join(__dirname, 'public/static')));
-
-    app.get('/*', function (req, res) {
-        if (req.url == '/') {
-            res.redirect('/' + utils.randomString(5));
-        } else {
-            res.render('index');
-        }
-    });
-
-    /// catch 404 and forward to error handler
-    app.use(function(req, res, next) {
-        var err = new Error('Not Found');
-        err.status = 404;
-        next(err);
-    });
-
-    /// error handlers
-
-    // development error handler
-    // will print stacktrace
-    if (app.get('env') === 'development') {
-        app.use(function(err, req, res, next) {
-            res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                error: err
-            });
-        });
+app.get('/*', function (req, res) {
+    if (req.url == '/') {
+        res.redirect('/' + utils.randomString(5));
+    } else {
+        res.render('index');
     }
+});
 
-    // production error handler
-    // no stacktraces leaked to user
+/// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: {}
+            error: err
         });
     });
+}
 
-    module.exports = server;
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
-}).call(this);
+module.exports = server;
