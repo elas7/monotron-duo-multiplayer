@@ -1,24 +1,27 @@
 import { connect } from 'react-redux'
-import { pressKey, releaseKey } from '../actions'
+import { mouseDownKey, mouseUpKey } from '../actions'
 import { Keyboard, KeyboardKey } from '../components/Keyboard'
 
 const mapStateToProps = (state) => {
   return {
-    keysDown: state.keysDown
+    keysDown: state.keyboard.keysDown
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPressKey: (number) => {
-      dispatch(pressKey(number));
+    onMouseDownKey: (number) => {
+      dispatch(mouseDownKey(number));
     },
-    onReleaseKey: (number) => {
-      dispatch(releaseKey(number));
+    onMouseUpKey: (number) => {
+      dispatch(mouseUpKey(number));
     }
   }
 };
 
+/**
+ * Keyboard container component
+ */
 const KeyboardContainer = connect(
   mapStateToProps,
   mapDispatchToProps

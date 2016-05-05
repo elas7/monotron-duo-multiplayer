@@ -8,8 +8,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
-import monotronApp from './reducers';
 
+import monotronApp from './reducers';
+import { mouseDownGlobal, mouseUpGlobal } from './actions';
 import Monotron from './Monotron';
 import MonotronComponent from './components/Monotron';
 
@@ -185,6 +186,16 @@ function setupDataHandlers() {
 let store = createStore(monotronApp, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
+
+// We track if the user has the mouse clicked when outside
+// the keyboard element because he may try a "slide-in"
+document.addEventListener('mousedown', function() {
+    store.dispatch(mouseDownGlobal())
+});
+document.addEventListener('mouseup', function() {
+    store.dispatch(mouseUpGlobal())
+});
+
 const DOMRoot = document.getElementById('root');
 
 ReactDOM.render(
