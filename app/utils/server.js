@@ -1,6 +1,9 @@
 (function () {
     'use strict';
 
+    /**
+     * Get a random alphanumeric string of a given length
+     */
     module.exports.randomString = function (len) {
         var i = 0,
             text = '',
