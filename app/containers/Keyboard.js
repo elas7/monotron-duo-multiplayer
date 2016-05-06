@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { mouseDownKey, mouseUpKey, mouseOverKey, mouseOutKey } from '../actions'
+import { mouseDownKey, mouseUpKey, mouseOverKey, mouseOutKey } from '../actions/keyboard'
 import { Keyboard, KeyboardKey } from '../components/Keyboard'
 
 const mapStateToProps = (state) => {

@@ -6,7 +6,7 @@ import KeyboardContainer from '../containers/Keyboard';
 /**
  * Monotron Component.
  */
-export default function Monotron() {
+export default function Monotron({knobs, dragging, onMouseDownKnob}) {
 
   // static part of the SVG that makes the Monotron.
   let staticSvg = (
@@ -158,20 +158,33 @@ export default function Monotron() {
     </g>
   );
 
+  let divClassName = dragging ? `monotron dragging` : `monotron`;
+
   return (
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         viewBox="0 215.5 609.9 359" enable-background="new 0 215.5 609.9 359" xmlSpace="preserve">
+    <div className={divClassName}>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             viewBox="0 215.5 609.9 359" enable-background="new 0 215.5 609.9 359" xmlSpace="preserve">
 
-      {staticSvg}
+            {staticSvg}
 
-      <Toggle name="toggleOsc2" />
-      <Knob name="knobOsc1" />
-      <Knob name="knobXmod" />
-      <Knob name="knobOsc2" />
-      <Knob name="knobCutoff" />
-      <Knob name="knobPeak" />
-      <KeyboardContainer />
+            <Toggle name="toggleOsc2" />
 
-    </svg>
+            {Object.keys(knobs).map(function(name) {
+                let knob = knobs[name];
+
+                return (
+                  <Knob
+                    key={name}
+                    name={name}
+                    position={knob.position}
+                    onMouseDown={() => onMouseDownKnob(name)}
+                  />
+                );
+            })}
+
+            <KeyboardContainer />
+
+        </svg>
+    </div>
   )
 }

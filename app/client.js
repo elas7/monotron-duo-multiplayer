@@ -9,10 +9,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
 
+import { qwertytoMidi } from './lib/keyboard'
 import monotronApp from './reducers';
-import { mouseDownGlobal, mouseUpGlobal, keyUpGlobal, keyDownGlobal } from './actions';
+import { mouseDownGlobal, mouseUpGlobal } from './actions/global';
+import { keyUpGlobal, keyDownGlobal } from './actions/keyboard';
 import Monotron from './Monotron';
-import MonotronComponent from './components/Monotron';
+import MonotronContainer from './containers/Monotron';
 
 var context = new window.AudioContext();
 
@@ -202,21 +204,27 @@ let down = {};
 window.addEventListener('keydown', function(e) {
     let keyCode = e.keyCode;
     if (down[keyCode] == null) { // first press
-        store.dispatch(keyDownGlobal(keyCode));
-        down[keyCode] = true;
+        let midiValue = qwertytoMidi(keyCode);
+        if (midiValue) {
+            store.dispatch(keyDownGlobal(midiValue));
+            down[keyCode] = true;
+        }
     }
 });
 window.addEventListener('keyup', function(e) {
     let keyCode = e.keyCode;
-    store.dispatch(keyUpGlobal(keyCode));
-    down[keyCode] = null;
+    let midiValue = qwertytoMidi(keyCode);
+    if (midiValue) {
+        store.dispatch(keyUpGlobal(midiValue));
+        down[keyCode] = null;
+    }
 });
 
 const DOMRoot = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-      <MonotronComponent />
+      <MonotronContainer />
   </Provider>,
   DOMRoot
 );

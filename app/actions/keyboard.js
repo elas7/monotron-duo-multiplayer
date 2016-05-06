@@ -1,7 +1,7 @@
 import { qwertytoMidi } from '../lib/keyboard'
 
 /**
- * Keyboard actions types
+ * Keyboard action types
  */
 // Emitted when doing mouse down on a keyboard key
 export const MOUSE_DOWN_KEY = 'MOUSE_DOWN_KEY';
@@ -11,10 +11,6 @@ export const MOUSE_UP_KEY = 'MOUSE_UP_KEY';
 export const MOUSE_OVER_KEY = 'MOUSE_OVER_KEY';
 // Emitted when doing mouse out from a keyboard key
 export const MOUSE_OUT_KEY = 'MOUSE_OUT_KEY';
-// Emitted when doing mouse down anywhere
-export const MOUSE_DOWN_GLOBAL = 'MOUSE_DOWN_GLOBAL';
-// Emitted when doing mouse up anywhere
-export const MOUSE_UP_GLOBAL = 'MOUSE_UP_GLOBAL';
 
 // Emitted when doing QWERTY key down anywhere
 export const KEY_DOWN_GLOBAL = 'KEY_DOWN_GLOBAL';
@@ -74,45 +70,27 @@ export const mouseOutKey = (number) => {
 };
 
 /**
- * MOUSE_DOWN_GLOBAL Action creator.
- */
-export const mouseDownGlobal = () => {
-  return {
-    type: MOUSE_DOWN_GLOBAL
-  }
-};
-
-/**
- * MOUSE_UP_GLOBAL Action creator.
- */
-export const mouseUpGlobal = () => {
-  return {
-    type: MOUSE_UP_GLOBAL
-  }
-};
-
-/**
  * KEY_DOWN_GLOBAL Action creator.
- * Takes a keyCode but returns a MIDI number in the payload
+ * Takes a MIDI number
  */
-export const keyDownGlobal = (keyCode) => {
+export const keyDownGlobal = (number) => {
   return {
     type: KEY_DOWN_GLOBAL,
     payload: {
-      number: qwertytoMidi(keyCode)
+      number: number
     }
   }
 };
 
 /**
  * KEY_UP_GLOBAL Action creator.
- * Takes a keyCode but returns a MIDI number in the payload
+ * Takes a MIDI number
  */
-export const keyUpGlobal = (keyCode) => {
+export const keyUpGlobal = (number) => {
   return {
     type: KEY_UP_GLOBAL,
     payload: {
-      number: qwertytoMidi(keyCode)
+      number: number
     }
   }
 };

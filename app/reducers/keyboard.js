@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux'
-
+import { MOUSE_DOWN_GLOBAL, MOUSE_UP_GLOBAL } from '../actions/global'
 import { MOUSE_DOWN_KEY, MOUSE_UP_KEY, MOUSE_OUT_KEY, MOUSE_OVER_KEY,
-         MOUSE_DOWN_GLOBAL, MOUSE_UP_GLOBAL, KEY_DOWN_GLOBAL,
-         KEY_UP_GLOBAL } from '../actions'
+         KEY_DOWN_GLOBAL, KEY_UP_GLOBAL } from '../actions/keyboard'
 
 /**
  * Initial state of keysDown.
