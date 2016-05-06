@@ -300,7 +300,7 @@ Keyboard.prototype.draw = function() {
 };
 
 Keyboard.prototype.publish = function() {
-    // Send an event with the current knob position.
+    // Send an event with the current pressed keys.
     var event = new CustomEvent('changed', { 'detail': this.keysDown });
     this.element.dispatchEvent(event);
 };

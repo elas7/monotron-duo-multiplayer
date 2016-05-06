@@ -7,6 +7,8 @@ import KeyboardContainer from '../containers/Keyboard';
  * Monotron Component.
  */
 export default function Monotron() {
+
+  // static part of the SVG that makes the Monotron.
   let staticSvg = (
     <g className="staticSvg">
       <path fill="#2D2D2F" d="M605.1,574.5H4.9c-2.7,0-4.9-2.2-4.9-4.9V220.5c0-2.7,2.2-4.9,4.9-4.9H605c2.7,0,4.9,2.2,4.9,4.9v349.1C610,572.3,607.9,574.5,605.1,574.5z"/>
@@ -154,7 +156,7 @@ export default function Monotron() {
       <path fill="#F0F0F2" d="M523.3,438.5h-1.9l-0.8-2h-3.5l-0.7,2h-1.9l3.4-8.6h1.9L523.3,438.5z M520,435.1l-1.2-3.2l-1.2,3.2H520z"/>
       <path fill="#F0F0F2" d="M524.3,438.5v-8.6h1.8v3.8l3.6-3.8h2.4l-3.3,3.4l3.5,5.3H530l-2.4-4l-1.4,1.4v2.6L524.3,438.5L524.3,438.5z  "/>
     </g>
-  )
+  );
 
   return (
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink" x="0px" y="0px"

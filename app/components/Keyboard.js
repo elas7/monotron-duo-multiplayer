@@ -38,7 +38,7 @@ KeyboardKey.propTypes = {
 /**
  * Keyboard Component.
  */
-export function Keyboard({keysDown, onMouseDownKey, onMouseUpKey}) {
+export function Keyboard({keysDown, onMouseDownKey, onMouseUpKey, onMouseOverKey, onMouseOutKey}) {
   // Return true if 'keyNumber' is in 'keysDown'
   let isKeyDown = function(keyNumber) {
     return keysDown.includes(keyNumber);
@@ -67,6 +67,18 @@ export function Keyboard({keysDown, onMouseDownKey, onMouseUpKey}) {
     onMouseUpKey(keyNumber);
   };
 
+  // mouseOver event handler
+  let handleMouseOver = function(event) {
+    let keyNumber = getKeyNumberFromDOMKey(event.target);
+    onMouseOverKey(keyNumber);
+  };
+
+  // mouseOut event handler
+  let handleMouseOut = function(event) {
+    let keyNumber = getKeyNumberFromDOMKey(event.target);
+    onMouseOutKey(keyNumber);
+  };
+
   // array of midi keys available in the visible keyboard
   const keyNumbers = range(45,63);
 
@@ -75,6 +87,8 @@ export function Keyboard({keysDown, onMouseDownKey, onMouseUpKey}) {
       className="keyboard"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       {keyNumbers.map(function(keyNumber) {
         return (

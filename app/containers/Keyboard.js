@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { mouseDownKey, mouseUpKey } from '../actions'
+import { mouseDownKey, mouseUpKey, mouseOverKey, mouseOutKey } from '../actions'
 import { Keyboard, KeyboardKey } from '../components/Keyboard'
 
 const mapStateToProps = (state) => {
   return {
-    keysDown: state.keyboard.keysDown
+    keysDown: state.keyboard.keysDown.ordered
   }
 };
 
@@ -15,6 +15,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMouseUpKey: (number) => {
       dispatch(mouseUpKey(number));
+    },
+    onMouseOverKey: (number) => {
+      dispatch(mouseOverKey(number));
+    },
+    onMouseOutKey: (number) => {
+      dispatch(mouseOutKey(number));
     }
   }
 };
