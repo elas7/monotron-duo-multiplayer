@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 
-import {MOUSE_DOWN_KEY, MOUSE_UP_KEY, MOUSE_OUT_KEY, MOUSE_OVER_KEY,
-        MOUSE_DOWN_GLOBAL, MOUSE_UP_GLOBAL} from '../actions'
+import { MOUSE_DOWN_KEY, MOUSE_UP_KEY, MOUSE_OUT_KEY, MOUSE_OVER_KEY,
+         MOUSE_DOWN_GLOBAL, MOUSE_UP_GLOBAL, KEY_DOWN_GLOBAL,
+         KEY_UP_GLOBAL } from '../actions'
 
 /**
  * Initial state of keysDown.
@@ -89,6 +90,10 @@ const keysDown = (state = keysDownInitialState, action, globalClick) => {
       } else {
         return state
       }
+    case KEY_DOWN_GLOBAL:
+      return pressKey(state, action.payload.number);
+    case KEY_UP_GLOBAL:
+      return releaseKey(state, action.payload.number);
     default:
       return state
   }
