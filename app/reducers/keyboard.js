@@ -76,27 +76,29 @@ const keysDown = (state = keysDownInitialState, action, globalClick, knobDraggin
       // release key only if no knob was being dragged
       if (!knobDragging) {
         return releaseKey(state, action.payload.number);
+      } else {
+        return state;
       }
     case MOUSE_OVER_KEY:
       // press key only if mouse was clicking and no knob is being dragged
       if (globalClick && !knobDragging) {
         return pressKey(state, action.payload.number);
       } else {
-        return state
+        return state;
       }
     case MOUSE_OUT_KEY:
       // release key only if mouse was clicking and no knob is being dragged
       if (globalClick && !knobDragging) {
         return releaseKey(state, action.payload.number);
       } else {
-        return state
+        return state;
       }
     case KEY_DOWN_GLOBAL:
       return pressKey(state, action.payload.number);
     case KEY_UP_GLOBAL:
       return releaseKey(state, action.payload.number);
     default:
-      return state
+      return state;
   }
 };
 
