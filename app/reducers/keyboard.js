@@ -66,24 +66,27 @@ const releaseKey = (keysDownState, keyNumber) => {
 
 /**
  * keysDown reducer
- * It Additionally gets the current state.globalClick.
+ * It Additionally gets the current state.globalClick and state.knobs.dragging
  */
-const keysDown = (state = keysDownInitialState, action, globalClick) => {
+const keysDown = (state = keysDownInitialState, action, globalClick, knobDragging) => {
   switch (action.type) {
     case MOUSE_DOWN_KEY:
       return pressKey(state, action.payload.number);
     case MOUSE_UP_KEY:
-      return releaseKey(state, action.payload.number);
+      // release key only if no knob was being dragged
+      if (!knobDragging) {
+        return releaseKey(state, action.payload.number);
+      }
     case MOUSE_OVER_KEY:
-      // press key only if mouse was clicking
-      if (globalClick) {
+      // press key only if mouse was clicking and no knob is being dragged
+      if (globalClick && !knobDragging) {
         return pressKey(state, action.payload.number);
       } else {
         return state
       }
     case MOUSE_OUT_KEY:
-      // release key only if mouse was clicking
-      if (globalClick) {
+      // release key only if mouse was clicking and no knob is being dragged
+      if (globalClick && !knobDragging) {
         return releaseKey(state, action.payload.number);
       } else {
         return state
@@ -119,12 +122,12 @@ const globalClick = (state = false, action) => {
 /**
  * keyboard Reducer
  */
-const keyboard = (state = {}, action) => {
+const keyboard = (state = {}, action, knobDragging) => {
   return {
     globalClick: globalClick(state.globalClick, action),
 
-    // Pass 'state.globalClick' to keysDown reducer
-    keysDown: keysDown(state.keysDown, action, state.globalClick)
+    // Pass 'state.globalClick' and 'knobDragging' to keysDown reducer
+    keysDown: keysDown(state.keysDown, action, state.globalClick, knobDragging)
   }
 };
 

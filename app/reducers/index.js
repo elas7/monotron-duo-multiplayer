@@ -6,9 +6,15 @@ import knobs from './knobs'
 /**
  * Monotron App main reducer
  */
-const monotronApp = combineReducers({
-  keyboard,
-  knobs
-});
+const monotronApp = (state = {}, action) => {
+  const dragging = state.knobs ? state.knobs.dragging : undefined;
+
+  return {
+    knobs: knobs(state.knobs, action),
+
+    // Pass 'state.knobs.dragging' to keyboard reducer
+    keyboard: keyboard(state.keyboard, action, dragging)
+  };
+};
 
 export default monotronApp
