@@ -6,7 +6,7 @@ import KeyboardContainer from '../containers/Keyboard';
 /**
  * Monotron Component.
  */
-export default function Monotron({knobs, dragging, onMouseDownKnob}) {
+export default function Monotron({knobs, dragging, onMouseDownKnob, onDoubleClickKnob}) {
 
   // static part of the SVG that makes the Monotron.
   let staticSvg = (
@@ -178,6 +178,7 @@ export default function Monotron({knobs, dragging, onMouseDownKnob}) {
                     name={name}
                     position={knob.position}
                     onMouseDown={(event) => onMouseDownKnob(name, event)}
+                    onDoubleClick={() => onDoubleClickKnob(name)}
                   />
                 );
             })}

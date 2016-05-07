@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { qwertytoMidi } from '../lib/keyboard'
 import { mouseDownGlobal, mouseUpGlobal } from '../actions/global';
 import { keyUpGlobal, keyDownGlobal } from '../actions/keyboard';
-import { mouseDownKnob, mouseMoveKnob } from '../actions/knob'
+import { mouseDownKnob, mouseMoveKnob, doubleClickKnob } from '../actions/knob'
 import Monotron from '../components/Monotron'
 
 /**
@@ -78,13 +78,14 @@ class MonotronContainer extends Component {
   }
 
   render () {
-    const { knobs, dragging, onMouseDownKnob } = this.props;
+    const { knobs, dragging, onMouseDownKnob, onDoubleClickKnob } = this.props;
 
     return (
       <Monotron
         knobs={knobs}
         dragging={dragging}
         onMouseDownKnob={onMouseDownKnob}
+        onDoubleClickKnob={onDoubleClickKnob}
       />
     );
   }
@@ -116,6 +117,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMouseMoveKnob: (event) => {
       dispatch(mouseMoveKnob(event));
+    },
+    onDoubleClickKnob: (name) => {
+      dispatch(doubleClickKnob(name));
     }
   }
 };

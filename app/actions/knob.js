@@ -7,6 +7,8 @@ import { getCursorPosition } from '../utils/client'
 export const MOUSE_DOWN_KNOB = 'MOUSE_DOWN_KNOB';
 // Emitted when doing mouse move while knob is pressed
 export const MOUSE_MOVE_KNOB = 'MOUSE_MOVE_KNOB';
+// Emitted when doing double click on knob
+export const DOUBLE_CLICK_KNOB = 'DOUBLE_CLICK_KNOB';
 
 /**
  * MOUSE_DOWN_KNOB Action creator.
@@ -35,6 +37,18 @@ export const mouseMoveKnob = (event) => {
     type: MOUSE_MOVE_KNOB,
     payload: {
       mouseYPosition: mouseYPosition
+    }
+  }
+};
+
+/**
+ * DOUBLE_CLICK_KNOB Action creator.
+ */
+export const doubleClickKnob = (name) => {
+  return {
+    type: DOUBLE_CLICK_KNOB,
+    payload: {
+      name: name
     }
   }
 };

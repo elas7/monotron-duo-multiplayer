@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 
 import { MOUSE_UP_GLOBAL } from '../actions/global'
-import { MOUSE_DOWN_KNOB, MOUSE_MOVE_KNOB } from '../actions/knob'
-import { rangeMin, rangeMax, responsivity } from '../lib/knob'
+import { MOUSE_DOWN_KNOB, MOUSE_MOVE_KNOB, DOUBLE_CLICK_KNOB } from '../actions/knob'
+import { rangeMin, rangeMax, rangeCenter, responsivity } from '../lib/knob'
 import { clamp } from '../utils/client'
 
 /**
@@ -19,7 +19,7 @@ const byNameInitialState = () => {
   for (let name of knobNames) {
     state[name] = {
       name: name,
-      position: 0.5,
+      position: rangeCenter,
       dragging: false
     }
   }
@@ -66,6 +66,13 @@ const byName = (state = byNameInitialState(), action, oldYPosition) => {
       } else {
         return state
       }
+    }
+    case DOUBLE_CLICK_KNOB: {
+      // Set knob position to initial position
+      let knobName = action.payload.name;
+      let newState = {...state};
+      newState[knobName] = {...state[knobName], position: rangeCenter };
+      return newState;
     }
     default:
       return state
