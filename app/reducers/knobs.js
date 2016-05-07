@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
 import { MOUSE_UP_GLOBAL } from '../actions/global'
-import { MOUSE_DOWN_KNOB } from '../actions/knob'
+import { MOUSE_DOWN_KNOB, MOUSE_MOVE_KNOB } from '../actions/knob'
+import { rangeMin, rangeMax, responsivity } from '../lib/knob'
+import { clamp } from '../utils/client'
 
 /**
  * Initial state of byName.
@@ -28,15 +30,31 @@ const byNameInitialState = () => {
 /**
  * byName Reducer
  */
-const byName = (state = byNameInitialState(), action) => {
+const byName = (state = byNameInitialState(), action, oldYPosition) => {
   switch (action.type) {
-    case MOUSE_DOWN_KNOB:
+    case MOUSE_DOWN_KNOB: {
       // Set dragging true in knob
       let knobName = action.payload.name;
       let newState = {...state};
       newState[knobName] = {...state[knobName], dragging: true };
       return newState;
-    case MOUSE_UP_GLOBAL:
+    }
+    case MOUSE_MOVE_KNOB: {
+      // set new position in the currently dragging knob
+      let draggingKnob = Object.keys(state).find((name) => {
+        return state[name].dragging === true;
+      });
+      let deltaY = action.payload.mouseYPosition - oldYPosition;
+      // Change knob position based on delta.
+      // 'clamp' prevents the knob position from leaving the range
+      let newPosition = clamp(
+        state[draggingKnob].position - (deltaY * responsivity), rangeMin, rangeMax
+      );
+      let newState = {...state};
+      newState[draggingKnob] = {...state[draggingKnob], position: newPosition };
+      return newState;
+    }
+    case MOUSE_UP_GLOBAL: {
       // Set dragging false if a knob is dragging
       let draggingKnob = Object.keys(state).find((name) => {
         return state[name].dragging === true;
@@ -48,6 +66,7 @@ const byName = (state = byNameInitialState(), action) => {
       } else {
         return state
       }
+    }
     default:
       return state
   }
@@ -70,13 +89,38 @@ const dragging = (state = false, action) => {
   }
 };
 
+/**
+ * mouseYPosition Reducer
+ * Y position of the mouse while a knob is being dragged. Used to calculate
+ * Y delta when dragging knob.
+ */
+const mouseYPosition = (state = null, action) => {
+  switch (action.type) {
+    case MOUSE_DOWN_KNOB:
+      // set position
+      return action.payload.mouseYPosition;
+    case MOUSE_MOVE_KNOB:
+      // set position
+      return action.payload.mouseYPosition;
+    case MOUSE_UP_GLOBAL:
+      // remove position
+      return null;
+    default:
+      return state
+  }
+};
 
 /**
  * knobs Reducer
  */
-const knobs = combineReducers({
-  byName,
-  dragging
-});
+const knobs = (state = {}, action) => {
+  return {
+    dragging: dragging(state.dragging, action),
+    mouseYPosition: mouseYPosition(state.mouseYPosition, action),
+
+    // Pass 'state.mouseYPosition' to byName reducer
+    byName: byName(state.byName, action, state.mouseYPosition)
+  }
+};
 
 export default knobs

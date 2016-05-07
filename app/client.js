@@ -9,10 +9,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
 
-import { qwertytoMidi } from './lib/keyboard'
 import monotronApp from './reducers';
-import { mouseDownGlobal, mouseUpGlobal } from './actions/global';
-import { keyUpGlobal, keyDownGlobal } from './actions/keyboard';
 import Monotron from './Monotron';
 import MonotronContainer from './containers/Monotron';
 
@@ -188,37 +185,6 @@ function setupDataHandlers() {
 let store = createStore(monotronApp, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
-
-// We track if the user has the mouse clicked when outside
-// the keyboard element because he may try a "slide-in"
-document.addEventListener('mousedown', function() {
-    store.dispatch(mouseDownGlobal());
-});
-document.addEventListener('mouseup', function() {
-    store.dispatch(mouseUpGlobal());
-});
-
-// Track QWERTY events
-// Keep track of which keys are down, to avoid repetitive 'keydown' events
-let down = {};
-window.addEventListener('keydown', function(e) {
-    let keyCode = e.keyCode;
-    if (down[keyCode] == null) { // first press
-        let midiValue = qwertytoMidi(keyCode);
-        if (midiValue) {
-            store.dispatch(keyDownGlobal(midiValue));
-            down[keyCode] = true;
-        }
-    }
-});
-window.addEventListener('keyup', function(e) {
-    let keyCode = e.keyCode;
-    let midiValue = qwertytoMidi(keyCode);
-    if (midiValue) {
-        store.dispatch(keyUpGlobal(midiValue));
-        down[keyCode] = null;
-    }
-});
 
 const DOMRoot = document.getElementById('root');
 

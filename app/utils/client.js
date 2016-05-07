@@ -1,3 +1,6 @@
+/**
+ * Takes a mouse event and return object with 'x' and 'y' positions of cursor.
+ */
 export var getCursorPosition = function(e) {
     var x, y;
     // pageX is a non-standard feature, it may not be available

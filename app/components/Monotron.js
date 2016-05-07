@@ -177,7 +177,7 @@ export default function Monotron({knobs, dragging, onMouseDownKnob}) {
                     key={name}
                     name={name}
                     position={knob.position}
-                    onMouseDown={() => onMouseDownKnob(name)}
+                    onMouseDown={(event) => onMouseDownKnob(name, event)}
                   />
                 );
             })}
