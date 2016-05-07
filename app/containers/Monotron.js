@@ -5,6 +5,7 @@ import { qwertytoMidi } from '../lib/keyboard'
 import { mouseDownGlobal, mouseUpGlobal } from '../actions/global';
 import { keyUpGlobal, keyDownGlobal } from '../actions/keyboard';
 import { mouseDownKnob, mouseMoveKnob, doubleClickKnob } from '../actions/knob'
+import { clickToggle } from '../actions/toggle'
 import Monotron from '../components/Monotron'
 
 /**
@@ -78,10 +79,12 @@ class MonotronContainer extends Component {
   }
 
   render () {
-    const { knobs, dragging, onMouseDownKnob, onDoubleClickKnob } = this.props;
+    const { toggles, onClickToggle, knobs, dragging, onMouseDownKnob, onDoubleClickKnob } = this.props;
 
     return (
       <Monotron
+        toggles={toggles}
+        onClickToggle={onClickToggle}
         knobs={knobs}
         dragging={dragging}
         onMouseDownKnob={onMouseDownKnob}
@@ -93,6 +96,7 @@ class MonotronContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    toggles: state.toggles,
     knobs: state.knobs.byName,
     dragging: state.knobs.dragging
   }
@@ -120,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDoubleClickKnob: (name) => {
       dispatch(doubleClickKnob(name));
+    },
+    onClickToggle: (name) => {
+      dispatch(clickToggle(name));
     }
   }
 };
