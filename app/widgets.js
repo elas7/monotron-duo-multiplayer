@@ -322,4 +322,4 @@ Keyboard.isVisibleKey = function(key) {
 // Mapping of QWERTY to MIDI
 // The first 3 notes are not playable with the QWERTY keyboard,
 // But they can be played with the mouse.
-Keyboard.dictKey = qwertyMidiMap
+Keyboard.dictKey = qwertyMidiMap;

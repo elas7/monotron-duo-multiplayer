@@ -6,7 +6,9 @@ import { mouseDownGlobal, mouseUpGlobal } from '../actions/global';
 import { keyUpGlobal, keyDownGlobal } from '../actions/keyboard';
 import { mouseDownKnob, mouseMoveKnob, doubleClickKnob } from '../actions/knob'
 import { clickToggle } from '../actions/toggle'
+import { getAudioData } from '../selectors/audioData'
 import Monotron from '../components/Monotron'
+import MonotronAudio from '../MonotronAudio'
 
 /**
  * Monotron container component
@@ -67,6 +69,9 @@ class MonotronContainer extends Component {
 
     // Track 'mousemove' events when a knob is being dragged
     window.addEventListener('mousemove', this.mouseMoveHandler);
+
+    // Initialize monotron audio generator
+    this.audioGenerator = new MonotronAudio(this.props.audioContext, this.props.audioData);
   }
 
   componentWillUnmount() {
@@ -77,6 +82,11 @@ class MonotronContainer extends Component {
     window.removeEventListener('keyup', this.keyUpHandler);
     window.removeEventListener('mousemove', this.mouseMoveHandler);
   }
+
+  componentDidUpdate() {
+    // Send audio data to the monotron audio generator
+    this.audioGenerator.update(this.props.audioData);
+  };
 
   render () {
     const { toggles, onClickToggle, knobs, dragging, onMouseDownKnob, onDoubleClickKnob } = this.props;
@@ -94,11 +104,13 @@ class MonotronContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     toggles: state.toggles,
     knobs: state.knobs.byName,
-    dragging: state.knobs.dragging
+    dragging: state.knobs.dragging,
+    audioData: getAudioData(state),
+    audioContext: ownProps.audioContext
   }
 };
 

@@ -2,10 +2,13 @@ var path = require('path');
 
 // Configuration data
 module.exports = {
-    entry: './app/client.js',
+    entry: {
+        client: './app/client.js',
+        singleplayer: './app/singleplayer.js'
+    },
     output: {
         path: './app/public/static/bundles/',
-        filename: 'client.js'
+        filename: '[name].js'
     },
     module: {
         loaders: [

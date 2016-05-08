@@ -16,6 +16,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use('/static', express.static(path.join(__dirname, 'public/static')));
 
+// Test URL for React migration. TODO: Delete after converting to SPA
+app.get('/singleplayer', function (req, res) {
+    res.render('singleplayer');
+});
+
 app.get('/*', function (req, res) {
     if (req.url == '/') {
         res.redirect('/' + utils.randomString(5));

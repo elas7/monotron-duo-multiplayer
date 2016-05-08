@@ -11,7 +11,7 @@ import { createStore, compose } from 'redux';
 
 import monotronApp from './reducers';
 import Monotron from './Monotron';
-import MonotronContainer from './containers/Monotron';
+import AppContainer from './containers/App';
 
 var context = new window.AudioContext();
 
@@ -190,7 +190,7 @@ const DOMRoot = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-      <MonotronContainer />
+      <AppContainer />
   </Provider>,
   DOMRoot
 );
