@@ -98,3 +98,11 @@ g.keyboard {
 .dragging * {
   cursor: crosshair
 }
+
+// Singleplayer styles
+.singleplayer {
+  .monotron {
+    width: 50%;
+    margin: 100px auto;
+  }
+}
